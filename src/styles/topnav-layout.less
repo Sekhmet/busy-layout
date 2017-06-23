@@ -1,0 +1,42 @@
+.topnav-layout {
+  .left {
+    display: none;
+    width: @left-width;
+    position: absolute;
+    height: 56px;
+    background: red;
+
+    @media @medium {
+      display: block;
+    }
+  }
+
+  .right {
+    right: 0;
+    display: none;
+    position: absolute;
+    width: @right-width;
+    height: 56px;
+    background: red;
+
+    @media @small {
+      display: block;
+    }  
+  }
+
+  .center {
+    width: 100%;
+    height: 56px;
+    background: #efefef;
+
+    @media @small {
+      width: calc(100% ~"-" (@right-width + @margin)); 
+      margin-right: @right-width + @margin;
+    }
+
+    @media @medium {
+      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      margin-left: @left-width + @margin;
+    }
+  }
+}
