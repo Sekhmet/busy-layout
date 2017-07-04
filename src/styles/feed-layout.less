@@ -1,14 +1,21 @@
 .feed-layout {
+
   .left {
     display: none;
-    position: fixed;
+    position: absolute;
     width: @left-width;
-    background: red;
+    height: 1200px;
+    background: linear-gradient(red, yellow);
 
     @media @medium {
       display: block;
     }
   }
+
+  .fixed {
+    position: fixed;
+  }
+
 
   .rightmarker {
     position: absolute;
