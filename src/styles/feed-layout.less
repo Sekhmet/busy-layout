@@ -2,7 +2,6 @@
 
   .left {
     display: none;
-    position: absolute;
     width: @left-width;
     height: 1200px;
     background: linear-gradient(red, yellow);
@@ -20,9 +19,8 @@
 
   .right {
     display: none;
-    position:fixed;
     width: @right-width;
-    background: red;
+    background: linear-gradient(red, yellow);
     height: 200px;
 
     @media @small {
