@@ -15,7 +15,7 @@ const App = () => (
       {/*<Affix className="rightmarker">
         <div className="right" />
       </Affix>*/}
-      <Affix>
+      <Affix stickPosition={72}>
         <div className="left" />
       </Affix>
       <div className="center">

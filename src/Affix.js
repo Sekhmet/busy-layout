@@ -5,18 +5,20 @@ class Affix extends React.Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
     className: PropTypes.string,
+    stickPosition: PropTypes.number,
   }
 
   static defaultProps = {
     className: '',
+    stickPosition: 0,
   }
 
   constructor(props) {
     super(props);
-    this.startPosition = 0;
+    this.initialized = false;
     this.lastScroll = document.body.scrollTop;
 
-    this.top = document.body.scrollTop;
+    this.top = 0;
   }
 
   componentDidMount() {
@@ -28,10 +30,13 @@ class Affix extends React.Component {
   }
 
   handleScroll() {
+    const { stickPosition } = this.props;
+
     const windowHeight = document.body.clientHeight;
     const scrollTop = document.body.scrollTop;
     const scrollDiff = scrollTop - this.lastScroll;
     const scrollingDown = this.lastScroll < document.body.scrollTop;
+    const offsetParent = this.container.offsetParent;
 
     const viewportOffset = this.container.getBoundingClientRect();
 
@@ -39,7 +44,7 @@ class Affix extends React.Component {
       this.top += scrollDiff;
     }
 
-    if (!scrollingDown && viewportOffset.top >= this.startPosition) {
+    if (!scrollingDown && viewportOffset.top >= stickPosition) {
       this.top += scrollDiff;
     }
 
@@ -49,8 +54,13 @@ class Affix extends React.Component {
 
     this.container.style.top = `${this.top}px`;
 
-    if (this.startPosition === 0) {
-      this.startPosition = this.container.getBoundingClientRect().top;
+    if (!this.initialized) {
+      if (this.container.getBoundingClientRect().top >= stickPosition
+        && offsetParent.getBoundingClientRect().top <= stickPosition) {
+        this.top -= offsetParent.offsetTop - stickPosition;
+        this.container.style.top = `${this.top}px`;
+      }
+      this.initialized = true;
     }
 
     this.lastScroll = scrollTop;
