@@ -43,6 +43,10 @@ class Affix extends React.Component {
       this.top += scrollDiff;
     }
 
+    if (this.top < 0) {
+      this.top = 0;
+    }
+
     this.container.style.top = `${this.top}px`;
 
     if (this.startPosition === 0) {

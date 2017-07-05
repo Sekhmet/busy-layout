@@ -12,9 +12,9 @@ const App = () => (
     </div>
     <div className="content container jumbotron" />
     <div className="feed-layout container">
-      <Affix className="rightmarker">
+      {/*<Affix className="rightmarker">
         <div className="right" />
-      </Affix>
+      </Affix>*/}
       <Affix>
         <div className="left" />
       </Affix>
