@@ -1,6 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Affix extends React.Component {
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+    className: PropTypes.string,
+  }
+
+  static defaultProps = {
+    className: '',
+  }
+
   constructor(props) {
     super(props);
     this.startPosition = 0;
@@ -9,7 +19,7 @@ class Affix extends React.Component {
     this.top = document.body.scrollTop;
   }
 
-  componentDidMount() {;
+  componentDidMount() {
     document.addEventListener('scroll', this.handleScroll.bind(this));
   }
 
@@ -33,7 +43,7 @@ class Affix extends React.Component {
       this.top += scrollDiff;
     }
 
-    this.container.style.top = this.top + 'px';
+    this.container.style.top = `${this.top}px`;
 
     if (this.startPosition === 0) {
       this.startPosition = this.container.getBoundingClientRect().top;
@@ -47,10 +57,11 @@ class Affix extends React.Component {
       <div
         className={this.props.className}
         style={{ position: 'absolute' }}
-        ref={(container) => { this.container = container }}>
+        ref={(container) => { this.container = container; }}
+      >
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 

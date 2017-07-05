@@ -5,21 +5,21 @@ const App = () => (
   <div>
     <div className="topnav">
       <div className="topnav-layout container">
-        <div className="left"></div>
-        <div className="right"></div>
-        <div className="center"></div>
+        <div className="left" />
+        <div className="right" />
+        <div className="center" />
       </div>
     </div>
-    <div className="content feed-layout container">
+    <div className="content container jumbotron" />
+    <div className="feed-layout container">
       <Affix className="rightmarker">
-        <div className="right"></div>
+        <div className="right" />
       </Affix>
       <Affix>
-        <div className="left"></div>
+        <div className="left" />
       </Affix>
-      
       <div className="center">
-        <div className="loremipsum"></div>
+        <div className="loremipsum" />
       </div>
     </div>
   </div>
