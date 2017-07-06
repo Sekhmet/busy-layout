@@ -20,6 +20,7 @@ class Affix extends React.Component {
 
     this.top = 0;
     this.bindedBottom = false;
+    this.bindedTop = false;
   }
 
   componentDidMount() {
@@ -35,7 +36,8 @@ class Affix extends React.Component {
 
     const windowHeight = document.body.clientHeight;
     const sidebarHeight = this.container.clientHeight;
-    const scrollTop = document.body.scrollTop;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollBottom = scrollTop + windowHeight;
     const scrollDiff = scrollTop - this.lastScroll;
     const scrollingDown = scrollDiff > 0;
     const parent = this.container.parentNode;
@@ -43,6 +45,8 @@ class Affix extends React.Component {
     const viewportOffset = this.container.getBoundingClientRect();
 
     const fits = (windowHeight >= sidebarHeight);
+    const overlaps = (viewportOffset.top < parent.getBoundingClientRect().top);
+    const shouldBindTop = (viewportOffset.top >= 72 && !scrollingDown && !overlaps && scrollTop >= parent.offsetTop);
 
     if (fits) {
       if (viewportOffset.top <= stickPosition) {
@@ -50,23 +54,33 @@ class Affix extends React.Component {
         this.container.style.top = stickPosition;
       }
 
-      const overlaps = (viewportOffset.top < parent.getBoundingClientRect().top);
-
       if (overlaps) {
         this.container.style.position = 'absolute';
         this.container.style.top = 'auto';
       }
     } else {
+      // Bind to bottom
       if (!this.bindedBottom && scrollingDown && viewportOffset.bottom <= windowHeight) {
+        console.log('1');
         this.container.style.position = 'fixed';
-        this.container.style.top = `${-(scrollTop + parent.getBoundingClientRect().top)}px`;
+        this.container.style.top = `${windowHeight - sidebarHeight}px`;
         this.bindedBottom = true;
+      // Unbind from bottom
       } else if (this.bindedBottom && !scrollingDown) {
+        console.log('2');
         this.container.style.position = 'absolute';
-        this.container.style.top = `${scrollTop - (windowHeight - stickPosition)}px`;
+        this.container.style.top = `${scrollBottom - (sidebarHeight + 292)}px`;
         this.bindedBottom = false;
+      } else if (shouldBindTop) {
+        this.container.style.position = 'fixed';
+        this.container.style.top = `${stickPosition}px`;
+      } else if (overlaps) {
+        this.container.style.position = 'absolute';
+        this.container.style.top = 'auto';
       }
     }
+
+    // TODO: Unbind from top
 
     // if (fits) {
     //   if (scrollTop >= offsetParent.offsetTop - stickPosition) {
