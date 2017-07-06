@@ -12,10 +12,10 @@ const App = () => (
     </div>
     <div className="content container jumbotron" />
     <div className="feed-layout container">
-      <Affix className="rightmarker" stickPosition={72}>
+      {/*<Affix stickPosition={72}>
         <div className="right" />
-      </Affix>
-      <Affix stickPosition={72}>
+      </Affix>*/}
+      <Affix className="pull-left" stickPosition={72}>
         <div className="left" />
       </Affix>
       <div className="center">

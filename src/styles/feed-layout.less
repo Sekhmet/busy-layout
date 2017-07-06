@@ -1,9 +1,23 @@
 .feed-layout {
+  position: relative;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .pull-left {
+    float: left;
+  }
+
+  .pull-right {
+    float: right;
+  }
 
   .left {
-    display: none;
+    height: 200px;
     width: @left-width;
-    height: 1200px;
     background: linear-gradient(red, yellow);
 
     @media @medium {
@@ -12,7 +26,7 @@
   }
 
   .rightmarker {
-    position: absolute;
+    position: sticky;
     width: @right-width;
     right: 0;
   }
